@@ -8,6 +8,8 @@ final class Recipe {
 	private final HashMap<String, Float> ins, outs;
 	private final short t;
 
+	private float w = Float.POSITIVE_INFINITY;
+
 	Recipe(String rName, String rMachine, HashMap<String, Float> inputs, short time, HashMap<String, Float> outputs) {
 		name = rName;
 		machine = rMachine;
@@ -22,6 +24,18 @@ final class Recipe {
 
 	HashMap<String, Float> outputs() {
 		return outs;
+	}
+
+	short time() {
+		return t;
+	}
+
+	void setWeight(float weight) {
+		w = weight;
+	}
+
+	float weight() {
+		return w;
 	}
 
 	@Override

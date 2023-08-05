@@ -32,6 +32,29 @@ final class Weigher {
 					items.put(k, new Item(k));
 				items.get(k).addRecipe(r);
 			});
+			queue.offer(r);
+		}
+		Recipe r;
+		float sum, rate;
+		HashMap<String, Float> is;
+		Item i;
+		while (!queue.isEmpty()) {
+			sum = 0;
+			rate = 60 / (r = queue.poll()).time();
+			is = r.inputs();
+			for (String k : is.keySet())
+				sum += items.get(k).weight() * is.get(k) * rate;
+			if (sum < r.weight()) {
+				r.setWeight(sum);
+				for (String k : r.outputs().keySet()) {
+					i = items.get(k);
+					if (sum < i.weight()) {
+						i.setBest(r);
+						i.setWeight(sum);
+						queue.addAll(i.recipes());
+					}
+				}
+			}
 		}
 		System.out.println(items);
 	}

@@ -9,6 +9,7 @@ final class Item {
 	private final ArrayList<Recipe> recipes = new ArrayList<>();
 
 	private float weight = Float.POSITIVE_INFINITY;
+	private Recipe best;
 
 	Item(String iName) {
 		name = iName;
@@ -23,10 +24,26 @@ final class Item {
 		recipes.add(r);
 	}
 
+	ArrayList<Recipe> recipes() {
+		return recipes;
+	}
+
+	void setWeight(float w) {
+		weight = w;
+	}
+
+	float weight() {
+		return weight;
+	}
+
+	void setBest(Recipe r) {
+		best = r;
+	}
+
 	@Override
 	public String toString() {
-		return new StringBuilder("(").append(name).append(", ").append(weight).append(", ").append(recipes).append(")")
-				.toString();
+		return new StringBuilder("(").append(name).append(", ").append(weight).append(", ").append(recipes).append(", ")
+				.append(best).append(")").toString();
 	}
 
 	static HashMap<String, Float> parseItemStacks(String str) {
